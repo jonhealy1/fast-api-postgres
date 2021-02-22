@@ -1,1 +1,1 @@
-# fast-api-potgres
+# fast-api-postgres
