@@ -14,6 +14,7 @@ async def create_note(payload: NoteSchema):
         "id": note_id,
         "title": payload.title,
         "description": payload.description,
+        "geometry": payload.geometry
     }
     return response_object
 
@@ -40,6 +41,7 @@ async def update_note(payload: NoteSchema, id: int = Path(..., gt=0),):
         "id": note_id,
         "title": payload.title,
         "description": payload.description,
+        "geometry": payload.geometry
     }
     return response_object
 

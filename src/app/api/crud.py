@@ -1,9 +1,8 @@
 from app.api.models import NoteSchema
 from app.db import notes, database
 
-
 async def post(payload: NoteSchema):
-    query = notes.insert().values(title=payload.title, description=payload.description)
+    query = notes.insert().values(title=payload.title, description=payload.description, geometry=payload.geometry)
     return await database.execute(query=query)
 
 async def get(id: int):
@@ -19,7 +18,7 @@ async def put(id: int, payload: NoteSchema):
         notes
         .update()
         .where(id == notes.c.id)
-        .values(title=payload.title, description=payload.description)
+        .values(title=payload.title, description=payload.description, geometry=payload.geometry)
         .returning(notes.c.id)
     )
     return await database.execute(query=query)
