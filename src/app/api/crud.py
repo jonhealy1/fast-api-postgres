@@ -10,8 +10,10 @@ async def get(id: int):
     return await database.fetch_one(query=query)
 
 async def get_all():
-    query = notes.select()
+    # query = notes.select()
+    query = "SELECT * FROM notes"
     return await database.fetch_all(query=query)
+
 
 async def put(id: int, payload: NoteSchema):
     query = (
