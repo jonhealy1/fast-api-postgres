@@ -1,5 +1,7 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, Json
 from typing import List, Any
+from typing import Dict
+
 
 '''
 curl -X 'POST' \
@@ -17,5 +19,6 @@ class NoteSchema(BaseModel):
     title: str = Field(..., min_length=3, max_length=50)
     description: str = Field(..., min_length=3, max_length=50)
     geometry: Any
+    data: Any
 class NoteDB(NoteSchema):
     id: int

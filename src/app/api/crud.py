@@ -1,8 +1,9 @@
 from app.api.models import NoteSchema
 from app.db import notes, database
+import json
 
 async def post(payload: NoteSchema):
-    query = notes.insert().values(title=payload.title, description=payload.description, geometry=payload.geometry)
+    query = notes.insert().values(title=payload.title, description=payload.description, geometry=payload.geometry, data=payload.data)
     return await database.execute(query=query)
 
 async def get(id: int):
@@ -11,8 +12,8 @@ async def get(id: int):
 
 async def get_all():
     # query = notes.select()
-    
-    query = "SELECT notes.id, notes.title, notes.description, ST_AsText(geometry) AS geometry FROM notes"
+
+    query = "SELECT notes.id, notes.title, notes.description, ST_AsText(geometry) AS geometry, notes.data FROM notes"
     # query = notes.select().where(notes.c.geometry.to_right('POLYGON((0 0,1 0,1 1,0 1,0 0))'))
     # query = notes.select().where(notes.c.geometry.to_right('POINT(1.1 0.4)'))
     # query = notes.select().where(notes.c.geometry.distance_box('POINT(0 0)') > 1)
