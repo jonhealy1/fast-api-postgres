@@ -44,5 +44,5 @@ async def delete(id: int):
 
 # select * from notes where ST_Intersects(notes.geometry, 'POINT(0 1)');
 async def search_location(x: int, y: int):
-    query = "select * from notes where ST_Intersects(notes.geometry, 'POINT(0 1)')"
+    query = f"select notes.id, notes.title, notes.description, ST_AsText(geometry) AS geometry, notes.data from notes where ST_Intersects(notes.geometry, 'POINT({x} {y})')"
     return await database.fetch_all(query=query)
