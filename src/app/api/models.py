@@ -22,3 +22,17 @@ class NoteSchema(BaseModel):
     data: Any
 class NoteDB(NoteSchema):
     id: int
+'''
+{
+  "title": "helllo",
+  "description": "hihi",
+  "geometry": "POLYGON((0 0,1 0,1 1,0 1,0 0))",
+  "data": "{'message': 1}"
+}
+'''
+'''
+{"address": {"zip": 5678, "street": "Cross St."}}
+select data->>'address' from notes;
+select data->'address'->>'zip' from notes;
+select * from notes where data->'address'->>'zip' = '5678';
+'''

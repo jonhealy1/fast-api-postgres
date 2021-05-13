@@ -3,7 +3,9 @@ from app.db import notes, database
 import json
 
 async def post(payload: NoteSchema):
-    query = notes.insert().values(title=payload.title, description=payload.description, geometry=payload.geometry, data=payload.data)
+    data_payload = payload.data
+    # data_payload = json.loads(r'{"data": {"test": 1, "hello": "I have \" !"}, "id": 4}')
+    query = notes.insert().values(title=payload.title, description=payload.description, geometry=payload.geometry, data=data_payload)
     return await database.execute(query=query)
 
 async def get(id: int):
