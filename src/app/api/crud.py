@@ -11,9 +11,14 @@ async def get(id: int):
 
 async def get_all():
     # query = notes.select()
-    query = "SELECT * FROM notes"
+    
+    query = "SELECT notes.id, notes.title, notes.description, ST_AsText(geometry) AS geometry FROM notes"
+    # query = notes.select().where(notes.c.geometry.to_right('POLYGON((0 0,1 0,1 1,0 1,0 0))'))
+    # query = notes.select().where(notes.c.geometry.to_right('POINT(1.1 0.4)'))
+    # query = notes.select().where(notes.c.geometry.distance_box('POINT(0 0)') > 1)
+    # query = notes.select().where(notes.c.geometry.contains('POINT(0 0)'))
+    # query = notes.select().where(notes.c.geometry.ST_Intersects('LINESTRING(2 1,4 1)'))
     return await database.fetch_all(query=query)
-
 
 async def put(id: int, payload: NoteSchema):
     query = (
