@@ -65,3 +65,13 @@ async def delete_note(id: int = Path(..., gt=0)):
     await crud.delete(id)
 
     return note
+
+@router.get("/search/{x}{y}/", response_model=List[NoteDB])
+async def search(
+    x: int,
+    y: int
+):
+    note = await crud.search_location(x, y)
+    if not note:
+        raise HTTPException(status_code=404, detail="Note not found")
+    return note
