@@ -20,14 +20,7 @@ async def get(id: int):
 
 
 async def get_all():
-    # query = notes.select()
-
     query = "SELECT notes.id, notes.title, notes.description, ST_AsText(geometry) AS geometry, notes.data FROM notes"
-    # query = notes.select().where(notes.c.geometry.to_right('POLYGON((0 0,1 0,1 1,0 1,0 0))'))
-    # query = notes.select().where(notes.c.geometry.to_right('POINT(1.1 0.4)'))
-    # query = notes.select().where(notes.c.geometry.distance_box('POINT(0 0)') > 1)
-    # query = notes.select().where(notes.c.geometry.contains('POINT(0 0)'))
-    # query = notes.select().where(notes.c.geometry.ST_Intersects('LINESTRING(2 1,4 1)'))
     return await database.fetch_all(query=query)
 
 
@@ -48,3 +41,8 @@ async def put(id: int, payload: NoteSchema):
 async def delete(id: int):
     query = notes.delete().where(id == notes.c.id)
     return await database.execute(query=query)
+
+# select * from notes where ST_Intersects(notes.geometry, 'POINT(0 1)');
+async def search_location(x: int, y: int):
+    query = "select * from notes where ST_Intersects(notes.geometry, 'POINT(0 1)')"
+    return await database.fetch_all(query=query)
