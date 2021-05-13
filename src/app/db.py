@@ -1,12 +1,11 @@
 import os
 
+from databases import Database
+from geoalchemy2 import Geometry
 from sqlalchemy import (Column, DateTime, Integer, MetaData, String, Table,
                         create_engine)
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.sql import func
-from sqlalchemy.dialects.postgresql import JSON, JSONB
-from geoalchemy2 import Geometry
-
-from databases import Database
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -20,7 +19,7 @@ notes = Table(
     Column("id", Integer, primary_key=True),
     Column("title", String(50)),
     Column("description", String(50)),
-    Column("geometry", Geometry('POLYGON')),
+    Column("geometry", Geometry("POLYGON")),
     Column("data", JSONB),
     Column("created_date", DateTime, default=func.now(), nullable=False),
 )

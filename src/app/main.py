@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import notes, ping
-from app.db import engine, metadata, database
+from app.db import database, engine, metadata
 
 metadata.create_all(engine)
 
