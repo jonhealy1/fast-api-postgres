@@ -75,3 +75,10 @@ async def search(
     if not note:
         raise HTTPException(status_code=404, detail="Note not found")
     return note
+
+# select data->>'address' from notes;
+@router.get("/jsonb/{search_param}")
+async def search_jsonb(
+    search_param: str
+):
+    return await crud.search_jsonb(search_param)

@@ -46,3 +46,8 @@ async def delete(id: int):
 async def search_location(x: int, y: int):
     query = f"select notes.id, notes.title, notes.description, ST_AsText(geometry) AS geometry, notes.data from notes where ST_Intersects(notes.geometry, 'POINT({x} {y})')"
     return await database.fetch_all(query=query)
+
+# JSONB query
+async def search_jsonb(search_param: str):
+    query = f"SELECT data->>'{search_param}' from notes"
+    return await database.fetch_all(query=query)

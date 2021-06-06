@@ -4,7 +4,7 @@ from app.api import crud
 
 # import pytest
 
-def test_create_note(test_app, monkeypatch):
+def test_create_basic_note(test_app, monkeypatch):
     test_request_payload = {"title": "something", "description": "something else"}
     test_response_payload = {
         "id": 1,
