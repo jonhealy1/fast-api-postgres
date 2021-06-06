@@ -24,6 +24,9 @@ class NoteSchema(BaseModel):
 class NoteDB(NoteSchema):
     id: int
 
+class JSONB(BaseModel):
+    zip: Any
+
 
 """
 {

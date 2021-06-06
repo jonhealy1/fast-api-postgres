@@ -1,3 +1,4 @@
+import json
 from typing import List
 
 from fastapi import APIRouter, HTTPException, Path
@@ -81,4 +82,13 @@ async def search(
 async def search_jsonb(
     search_param: str
 ):
-    return await crud.search_jsonb(search_param)
+    # return await crud.search_jsonb(search_param)
+    response = await crud.search_jsonb(search_param)
+    address_list = []
+    for r in response:
+        if r["?column?"] is not None:
+            parsed_data = json.loads(r["?column?"].replace("\'", '"'))
+            address_list.append(parsed_data)
+        # json.loads(response_read.replace("\'", '"'))
+
+    return address_list
