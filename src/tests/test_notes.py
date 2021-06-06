@@ -1,30 +1,31 @@
-# import json
+import json
+
+from app.api import crud
 
 # import pytest
 
-# from app.api import crud
+def test_create_note(test_app, monkeypatch):
+    test_request_payload = {"title": "something", "description": "something else"}
+    test_response_payload = {
+        "id": 1,
+        "title": "something",
+        "description": "something else",
+        "data": None,
+        "geometry": None
+    }
 
+    async def mock_post(payload):
+        return 1
 
-# def test_create_note(test_app, monkeypatch):
-#     test_request_payload = {"title": "something", "description": "something else"}
-#     test_response_payload = {
-#         "id": 1,
-#         "title": "something",
-#         "description": "something else",
-#     }
+    monkeypatch.setattr(crud, "post", mock_post)
 
-#     async def mock_post(payload):
-#         return 1
+    response = test_app.post(
+        "/notes/",
+        data=json.dumps(test_request_payload),
+    )
 
-#     monkeypatch.setattr(crud, "post", mock_post)
-
-#     response = test_app.post(
-#         "/notes/",
-#         data=json.dumps(test_request_payload),
-#     )
-
-#     assert response.status_code == 201
-#     assert response.json() == test_response_payload
+    assert response.status_code == 201
+    assert response.json() == test_response_payload
 
 
 # def test_create_note_invalid_json(test_app):
