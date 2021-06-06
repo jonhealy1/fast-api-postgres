@@ -18,6 +18,7 @@ async def create_note(payload: NoteSchema):
         "title": payload.title,
         "description": payload.description,
         "geometry": payload.geometry,
+        "data": payload.data
     }
     return response_object
 

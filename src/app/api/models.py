@@ -33,7 +33,7 @@ class JSONB(BaseModel):
   "title": "helllo",
   "description": "hihi",
   "geometry": "POLYGON((0 0,1 0,1 1,0 1,0 0))",
-  "data": "{'message': 1}"
+  "data": {"address": {"zip": 5678, "street": "Cross St."}}
 }
 """
 """
